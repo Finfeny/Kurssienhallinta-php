@@ -1,0 +1,31 @@
+#header {
+    font-size: 70px;
+    text-align: center
+    ;
+}
+
+.content {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 30px;
+}
+
+.Container {
+    width: 21vw;
+    border-radius: 10px; 
+    box-shadow: 0px 0px 60px -35px;
+    text-align: center;
+    /* background: beige;
+    border: groove;
+    width: 400px; */
+}
+
+img {
+    max-width: 15vw;
+}
+
+@media screen and (max-width: 1700px){
+    .Otsikko {
+        font-size: 4vw;
+    }
+}
