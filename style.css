@@ -1,7 +1,14 @@
 #header {
     font-size: 70px;
-    text-align: center
-    ;
+    text-align: center;
+}
+
+/* p {
+    margin: 0;
+} */
+
+a {
+    display: inherit;
 }
 
 .content {
@@ -23,6 +30,10 @@
 img {
     max-width: 15vw;
 }
+
+/* #opiskelijat {
+    font-size: 30px;
+} */
 
 @media screen and (max-width: 1700px){
     .Otsikko {
