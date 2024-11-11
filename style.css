@@ -1,3 +1,7 @@
+* {
+    font-family: 'Arial', sans-serif;
+}
+
 #header {
     font-size: 70px;
     text-align: center;
@@ -9,12 +13,16 @@
 
 a {
     display: inherit;
+    /* border-top: inset; */
+    padding: 5px;
+    /* text-align: left; */
 }
 
 .content {
     display: flex;
     justify-content: space-around;
     padding-top: 30px;
+    align-items: flex-start;
 }
 
 .Container {
@@ -31,12 +39,67 @@ img {
     max-width: 15vw;
 }
 
-/* #opiskelijat {
-    font-size: 30px;
-} */
+.tunnus {
+    border-top: inset;
+    /* text-align: left; */
+}
+
+/* ----------------- Animaatiot --------------------*/
+
+#opiskelijat {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.5s linear, max-height 0.75s cubic-bezier(.48,.49,.13,.89);
+}
+
+#opiskelijat.show {
+    opacity: 1;
+    max-height: 350px;
+}
+
+#opettajat {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.5s linear, max-height 0.75s cubic-bezier(.48,.49,.13,.89);
+}
+
+#opettajat.show {
+    opacity: 1;
+    max-height: 350px;
+}
+
+#kurssit {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.5s linear, max-height 0.75s cubic-bezier(.48,.49,.13,.89);
+}
+
+#kurssit.show {
+    opacity: 1;
+    max-height: 350px;
+}
+
+#tilat {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.5s linear, max-height 0.75s cubic-bezier(.48,.49,.13,.89);
+}
+
+#tilat.show {
+    opacity: 1;
+    max-height: 350px;
+}
 
 @media screen and (max-width: 1700px){
+    a {
+        font-size: 2.2vw;
+    }
+    
     .Otsikko {
-        font-size: 4vw;
+        font-size: 3.5vw;
     }
 }

@@ -43,19 +43,18 @@
     catch (PDOException $e) {
         die("Virhe: " . $e->getMessage());
     }
-
+    
+    // <!--
+    
+    // Error Handling:
+    
+    //     MySQLi uses procedural or object-oriented style and does not throw exceptions by default unless you explicitly enable it. You typically check for errors manually.
+    //     PDO uses exceptions (try-catch blocks), which makes it easier to handle database errors gracefully. 
+        
+    // Connection Handling:
+    
+    //     With MySQLi, you need to manually close the connection using $conn->close().
+    //     With PDO, the connection is automatically closed when the script finishes or when you explicitly set the connection object to null ($conn = null;).
+        
+    // -->
 ?> 
-
-<!--
-
-Error Handling:
-
-    MySQLi uses procedural or object-oriented style and does not throw exceptions by default unless you explicitly enable it. You typically check for errors manually.
-    PDO uses exceptions (try-catch blocks), which makes it easier to handle database errors gracefully. 
-    
-Connection Handling:
-
-    With MySQLi, you need to manually close the connection using $conn->close().
-    With PDO, the connection is automatically closed when the script finishes or when you explicitly set the connection object to null ($conn = null;).
-    
--->

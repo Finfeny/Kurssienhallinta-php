@@ -14,15 +14,50 @@
             <!-- <div class="" id="opiskelijat" onClick="document.getElementById('opiskelijat').innerHTML = 'HElp'"></div> -->
         <h1 class="Otsikko">Opiskelijat</h1>
             <img src="./svg/school.svg">
-            <div id="opiskelijat" style="display: none">
+            <div id="opiskelijat">
                 <?php
                     $opiskelijat = $conn->query("SELECT * FROM `opiskelijat`")->fetchAll();
                     foreach ($opiskelijat as $opiskelija) {
-                        echo "<a>" . $opiskelija["Etunimi"] . "</a>";
+                        echo "<a class='tunnus'>" . $opiskelija["Opiskelijanumero"] ." ". $opiskelija["Etunimi"] . "</a>" . "<a>". $opiskelija["Sukunimi"] . "</a>";
                     }
                 ?>
             </div>
         </div>
+        <div class="Container" onClick="toggledisplayOpettajat()">
+            <h1 class="Otsikko">Opettajat</h1>
+            <img src="./svg/person.svg">
+            <div id="opettajat">
+            <?php
+                    $opettajat = $conn->query("SELECT * FROM `opettajat`")->fetchAll();
+                    foreach ($opettajat as $opettaja) {
+                        echo "<a class='tunnus'>" . $opettaja["Tunnusnumero"] ." ". $opettaja["Etunimi"] . "<br>". $opettaja["Sukunimi"] . "</a>";
+                    }
+                ?>
+            </div>
+        </div>
+        <div class="Container" onClick="toggledisplayKurssit()">
+            <h1 class="Otsikko">Kurssit</h1>
+            <img src="./svg/calendar.svg">
+            <div id="kurssit">
+                <?php
+                    $kurssit = $conn->query("SELECT * FROM `kurssit`")->fetchAll();
+                    foreach ($kurssit as $kurssi) {
+                        echo "<a class='tunnus'>" . $kurssi["Nimi"] . "</a>";
+                    }
+                ?>
+            </div>
+        </div>
+        <div class="Container" onClick="toggledisplayTilat()">
+            <h1 class="Otsikko">Tilat</h1>
+            <img src="./svg/room.svg">
+            <div id="tilat">
+                <?php
+                    $tilat = $conn->query("SELECT * FROM `tilat`")->fetchAll();
+                    foreach ($tilat as $tila) {
+                        echo "<a class='tunnus'>" . $tila["Nimi"] . "</a>";
+                    }
+                ?>
+            </div>
         </div>
     </div>
 </body>
@@ -37,90 +72,43 @@
 
 
 <script>
-    
-    function toggledisplayOpiskelijat() {
-        if (document.getElementById("opiskelijat").style.display === "none") {
-            document.getElementById("opiskelijat").style.display = "block";
-        }
-        else {
-            document.getElementById("opiskelijat").style.display = "none";
-        }
-    }
 
     function toggledisplayOpiskelijat() {
-        if (document.getElementById("opiskelijat").style.display === "none") {
-            document.getElementById("opiskelijat").style.display = "block";
-        }
-        else {
-            document.getElementById("opiskelijat").style.display = "none";
+        var element = document.getElementById("opiskelijat");
+        if (element.classList.contains("show")) {
+            element.classList.remove("show");
+        } else {
+            element.classList.add("show");
         }
     }
 
     function toggledisplayOpettajat() {
-        if (document.getElementById("opettajat").style.display === "none") {
-            document.getElementById("opettajat").style.display = "block";
-        }
-        else {
-            document.getElementById("opettajat").style.display = "none";
+        var element = document.getElementById("opettajat");
+        if (element.classList.contains("show")) {
+            element.classList.remove("show");
+        } else {
+            element.classList.add("show");
         }
     }
 
     function toggledisplayKurssit() {
-        if (document.getElementById("kurssit").style.display === "none") {
-            document.getElementById("kurssit").style.display = "block";
-        }
-        else {
-            document.getElementById("kurssit").style.display = "none";
+        var element = document.getElementById("kurssit");
+        if (element.classList.contains("show")) {
+            element.classList.remove("show");
+        } else {
+            element.classList.add("show");
         }
     }
 
     function toggledisplayTilat() {
-        if (document.getElementById("tilat").style.display === "none") {
-            document.getElementById("tilat").style.display = "block";
-        }
-        else {
-            document.getElementById("tilat").style.display = "none";
+        var element = document.getElementById("tilat");
+        if (element.classList.contains("show")) {
+            element.classList.remove("show");
+        } else {
+            element.classList.add("show");
         }
     }
     
     </script>
-<!-- <div class="Container" onClick="toggledisplayOpettajat()">
-            <h1 class="Otsikko">Opettajat</h1>
-            <img src="./svg/person.svg">
-            <div id="opettajat" style="display: none">
-                <?php
-                    $opettajat = $conn->query("SELECT * FROM `opettajat`")->fetchAll();
-                    foreach ($opettajat as $opettaja) {
-                        echo $opettaja["Etunimi"];
-                        ?><br><?php
-                    }
-                ?>
-            </div>
-        </div>
-        <div class="Container" onClick="toggledisplayKurssit()">
-            <h1 class="Otsikko">Kurssit</h1>
-            <img src="./svg/calendar.svg">
-            <div id="kurssit" style="display: none">
-                <?php
-                    $kurssit = $conn->query("SELECT * FROM `kurssit`")->fetchAll();
-                    foreach ($kurssit as $kurssi) {
-                        echo $kurssi["Nimi"];
-                        ?><br><?php
-                    }
-                ?>
-            </div>
-        </div>
-        <div class="Container" onClick="toggledisplayTilat()">
-            <h1 class="Otsikko">Tilat</h1>
-            <img src="./svg/room.svg">
-            <div id="tilat" style="display: none">
-                <?php
-                    $tilat = $conn->query("SELECT * FROM `tilat`")->fetchAll();
-                    foreach ($tilat as $tila) {
-                        echo $tila["Nimi"];
-                        ?><br><?php
-                    }
-                ?>
-            </div> -->
 
 </html>
