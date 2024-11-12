@@ -50,18 +50,6 @@ img {
 
 /* ----------------- Animaatiot --------------------*/
 
-#opiskelijat {
-    overflow: hidden;
-    opacity: 0;
-    max-height: 0;
-    transition: opacity 0.5s linear, max-height 0.75s cubic-bezier(.48,.49,.13,.89);
-}
-
-#opiskelijat.show {
-    opacity: 1;
-    max-height: 350px;
-}
-
 .Info {
     overflow: hidden;
     opacity: 0;
@@ -71,7 +59,19 @@ img {
 
 .Info.show {
     opacity: 1;
-    max-height: 100px;
+    max-height: 220px;
+}
+
+#opiskelijat {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.5s linear, max-height 0.75s cubic-bezier(.48,.49,.13,.89);
+}
+
+#opiskelijat.show {
+    opacity: 1;
+    max-height: 500px;
 }
 
 #opettajat {
@@ -83,7 +83,7 @@ img {
 
 #opettajat.show {
     opacity: 1;
-    max-height: 350px;
+    max-height: 500px;
 }
 
 #kurssit {
@@ -95,7 +95,7 @@ img {
 
 #kurssit.show {
     opacity: 1;
-    max-height: 350px;
+    max-height: 500px;
 }
 
 #tilat {
@@ -107,7 +107,7 @@ img {
 
 #tilat.show {
     opacity: 1;
-    max-height: 350px;
+    max-height: 500px;
 }
 
 @media screen and (max-width: 1700px){

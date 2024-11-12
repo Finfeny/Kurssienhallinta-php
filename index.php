@@ -52,20 +52,29 @@
                     $kurssit = $conn->query("SELECT * FROM `kurssit`")->fetchAll();
                     foreach ($kurssit as $kurssi) {
                         echo "<div onClick='toggledisplaySukunimi(this)'>
-                        <a class='tunnus'>" . $kurssi["Tunnus"] ." ". $kurssi["Nimi"] . "</a>" . 
-                        "<a class='Info'>" . $kurssi["Kuvaus"] . "</a></div>";
-                }
+                        <a class='tunnus'>" . $kurssi["Tunnus"] . " " . $kurssi["Nimi"] . "</a>";
+                        echo "<a class='Info'>" . $kurssi["Kuvaus"] . "<br>" . $kurssi["Alkupäivä"] . " " . $kurssi["Loppupäivä"] . "<br>";
+
+                        $sql = "SELECT * FROM `opettajat` WHERE `Tunnusnumero` = " . $kurssi["Opettaja"];
+                        $opettajat = $conn->query($sql)->fetchAll();
+                        echo $opettajat[0]["Etunimi"] . " " . $opettajat[0]["Sukunimi"] . "</a></div>";
+                    }
                 ?>
+
             </div>
         </div>
-        <div class="Container" onClick="toggledisplayTilat()">
-            <h1 class="Otsikko">Tilat</h1>
-            <img src="./svg/room.svg">
+        <div class="Container">
+            <div onClick="toggledisplayTilat()">
+                <h1 class="Otsikko">Tilat</h1>
+                <img src="./svg/room.svg">
+            </div>
             <div id="tilat">
                 <?php
                     $tilat = $conn->query("SELECT * FROM `tilat`")->fetchAll();
                     foreach ($tilat as $tila) {
-                        echo "<a class='tunnus'>" . $tila["Nimi"] . "</a>";
+                        echo "<div onClick='toggledisplaySukunimi(this)'>
+                        <a class='tunnus'>" . $tila["Tunnus"] ." ". $tila["Nimi"] . "</a>" . 
+                        "<a class='Info'> Kapasiteetti " . $tila["Kapasiteetti"] . "</a></div>";
                     }
                 ?>
             </div>
