@@ -57,7 +57,11 @@
 
                         $sql = "SELECT * FROM `opettajat` WHERE `Tunnusnumero` = " . $kurssi["Opettaja"];
                         $opettajat = $conn->query($sql)->fetchAll();
-                        echo $opettajat[0]["Etunimi"] . " " . $opettajat[0]["Sukunimi"] . "</a></div>";
+                        echo $opettajat[0]["Etunimi"] . " " . $opettajat[0]["Sukunimi"] . "<br>";
+
+                        $sql = "SELECT * FROM `tilat` WHERE `Tunnus` = " . $kurssi["Tila"];
+                        $tilat = $conn->query($sql)->fetchAll();
+                        echo $tilat[0]["Nimi"]."</a></div>";
                     }
                 ?>
 
