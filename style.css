@@ -44,6 +44,10 @@ img {
     /* text-align: left; */
 }
 
+/* #Sukunimi {
+    display: none;
+} */
+
 /* ----------------- Animaatiot --------------------*/
 
 #opiskelijat {
@@ -56,6 +60,18 @@ img {
 #opiskelijat.show {
     opacity: 1;
     max-height: 350px;
+}
+
+.Info {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.3s linear, max-height 0.2s cubic-bezier(.48,.49,.13,.89);
+}
+
+.Info.show {
+    opacity: 1;
+    max-height: 100px;
 }
 
 #opettajat {

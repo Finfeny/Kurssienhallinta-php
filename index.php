@@ -10,40 +10,51 @@
 <body>
     <h1 id="header">Kurssienhallinta<h1>
     <div class="content">
-        <div class="Container" onClick="toggledisplayOpiskelijat()">
-            <!-- <div class="" id="opiskelijat" onClick="document.getElementById('opiskelijat').innerHTML = 'HElp'"></div> -->
-        <h1 class="Otsikko">Opiskelijat</h1>
-            <img src="./svg/school.svg">
+        <div class="Container">
+            <div onClick="toggledisplayOpiskelijat()">
+                <h1 class="Otsikko">Opiskelijat</h1>
+                <img src="./svg/school.svg">
+            </div>
             <div id="opiskelijat">
                 <?php
                     $opiskelijat = $conn->query("SELECT * FROM `opiskelijat`")->fetchAll();
                     foreach ($opiskelijat as $opiskelija) {
-                        echo "<a class='tunnus'>" . $opiskelija["Opiskelijanumero"] ." ". $opiskelija["Etunimi"] . "</a>" . "<a>". $opiskelija["Sukunimi"] . "</a>";
+                        echo "<div onClick='toggledisplaySukunimi(this)'>
+                        <a class='tunnus'>" . $opiskelija["Opiskelijanumero"] ." ". $opiskelija["Etunimi"] . "</a>" . 
+                        "<a class='Info'>" . $opiskelija["Sukunimi"] . "</a></div>";
                     }
                 ?>
             </div>
         </div>
-        <div class="Container" onClick="toggledisplayOpettajat()">
-            <h1 class="Otsikko">Opettajat</h1>
-            <img src="./svg/person.svg">
+        <div class="Container">
+            <div onClick="toggledisplayOpettajat()">
+                <h1 class="Otsikko">Opettajat</h1>
+                <img src="./svg/person.svg">
+            </div>
             <div id="opettajat">
             <?php
-                    $opettajat = $conn->query("SELECT * FROM `opettajat`")->fetchAll();
-                    foreach ($opettajat as $opettaja) {
-                        echo "<a class='tunnus'>" . $opettaja["Tunnusnumero"] ." ". $opettaja["Etunimi"] . "<br>". $opettaja["Sukunimi"] . "</a>";
-                    }
+                $opettajat = $conn->query("SELECT * FROM `opettajat`")->fetchAll();
+                foreach ($opettajat as $opettaja) {
+                    echo "<div onClick='toggledisplaySukunimi(this)'>
+                    <a class='tunnus'>" . $opettaja["Tunnusnumero"] ." ". $opettaja["Etunimi"] . "</a>" . 
+                    "<a class='Info'>" . $opettaja["Sukunimi"] . "</a></div>";
+                }
                 ?>
             </div>
         </div>
-        <div class="Container" onClick="toggledisplayKurssit()">
-            <h1 class="Otsikko">Kurssit</h1>
-            <img src="./svg/calendar.svg">
-            <div id="kurssit">
+        <div class="Container">
+            <div  onClick="toggledisplayKurssit()">
+                <h1 class="Otsikko">Kurssit</h1>
+                <img src="./svg/calendar.svg">
+            </div>
+                <div id="kurssit">
                 <?php
                     $kurssit = $conn->query("SELECT * FROM `kurssit`")->fetchAll();
                     foreach ($kurssit as $kurssi) {
-                        echo "<a class='tunnus'>" . $kurssi["Nimi"] . "</a>";
-                    }
+                        echo "<div onClick='toggledisplaySukunimi(this)'>
+                        <a class='tunnus'>" . $kurssi["Tunnus"] ." ". $kurssi["Nimi"] . "</a>" . 
+                        "<a class='Info'>" . $kurssi["Kuvaus"] . "</a></div>";
+                }
                 ?>
             </div>
         </div>
@@ -62,15 +73,6 @@
     </div>
 </body>
 
-
-
-
-
-
-
-
-
-
 <script>
 
     function toggledisplayOpiskelijat() {
@@ -81,6 +83,15 @@
             element.classList.add("show");
         }
     }
+
+    function toggledisplaySukunimi(clickedElement) {
+    var sukunimiElement = clickedElement.querySelector(".Info");
+    if (sukunimiElement.classList.contains("show")) {
+        sukunimiElement.classList.remove("show");
+    } else {
+        sukunimiElement.classList.add("show");
+    }
+}
 
     function toggledisplayOpettajat() {
         var element = document.getElementById("opettajat");
