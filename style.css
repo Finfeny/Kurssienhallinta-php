@@ -1,15 +1,12 @@
 * {
     font-family: 'Arial', sans-serif;
+    font-weight: 500;
 }
 
 #header {
     font-size: 70px;
     text-align: center;
 }
-
-/* p {
-    margin: 0;
-} */
 
 a {
     display: inherit;
@@ -44,22 +41,19 @@ img {
     /* text-align: left; */
 }
 
-/* #Sukunimi {
-    display: none;
-} */
-
 /* ----------------- Animaatiot --------------------*/
 
 .Info {
     overflow: hidden;
     opacity: 0;
     max-height: 0;
-    transition: opacity 0.3s linear, max-height 0.2s cubic-bezier(.48,.49,.13,.89);
+    transition: opacity 0.3s linear, max-height 0.4s cubic-bezier(.48,.49,.13,.89);
+    cursor: progress ;
 }
 
 .Info.show {
     opacity: 1;
-    max-height: 220px;
+    max-height: 450px;
 }
 
 #opiskelijat {
@@ -90,12 +84,12 @@ img {
     overflow: hidden;
     opacity: 0;
     max-height: 0;
-    transition: opacity 0.5s linear, max-height 0.75s cubic-bezier(.48,.49,.13,.89);
+    transition: opacity 1s linear, max-height 1.5s cubic-bezier(.48,.49,.13,.89);
 }
 
 #kurssit.show {
     opacity: 1;
-    max-height: 500px;
+    max-height: 2000px;
 }
 
 #tilat {
