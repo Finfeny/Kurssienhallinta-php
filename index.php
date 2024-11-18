@@ -17,6 +17,18 @@
     </div>
     <div class="content">
         <div class="Container">
+            <div id="lisääOpiskelijaContent" style="display: none">
+                <form action="lisaaOpiskelija.php" method="POST">
+                    <input class="lisaaInput" type="text" name="Etunimi">
+                    <input class="lisaaInput" type="text" name="Sukunimi">
+                    <input class="lisaaInput" type="date" name="Syntymäpäivä">
+                    <select class="lisaaInput" name="Vuosikurssi"><br>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    <input class="lisaaInputNappi" type="submit" value="Lisää">
+                </form>
+            </div>
             <div onClick="toggledisplayOpiskelijat()">
                 <h1 class="Otsikko">Opiskelijat</h1>
                 <img src="./svg/school.svg">
@@ -33,6 +45,14 @@
             </div>
         </div>
         <div class="Container">
+            <div id="lisääOpettajaContent" style="display: none">
+                <form action="lisaaOpettaja.php" method="POST">
+                    <input class="lisaaInput" type="text" name="Etunimi">
+                    <input class="lisaaInput" type="text" name="Sukunimi">
+                    <input class="lisaaInput" type="text" name="Aine">
+                    <input class="lisaaInputNappi" type="submit" value="Lisää">
+                </form>
+            </div>
             <div onClick="toggledisplayOpettajat()">
                 <h1 class="Otsikko">Opettajat</h1>
                 <img src="./svg/person.svg">
@@ -88,6 +108,14 @@
             </div>
         </div>
         <div class="Container">
+            <div id="lisääTilaContent" style="display: none">
+                <form action="lisaaTila.php" method="POST">
+                    <input class="lisaaInput" type="text" name="Tunnus">
+                    <input class="lisaaInput" type="text" name="Nimi">
+                    <input class="lisaaInput" type="text" name="Kapasiteetti">
+                    <input class="lisaaInputNappi" type="submit" value="Lisää">
+                </form>
+            </div>
             <div onClick="toggledisplayTilat()">
                 <h1 class="Otsikko">Tilat</h1>
                 <img src="./svg/room.svg">
@@ -111,8 +139,39 @@
     //                            ------------Lisää napit--------------
 
     function lisääOpiskelija() {
-        var etunimi = prompt("Anna opiskelijan etunimi");
-        var sukunimi = prompt
+        var show = document.getElementById("lisääOpiskelijaContent").style.display;
+        if (show == "block") {
+            document.getElementById("lisääOpiskelijaContent").style.display = "none";
+        } else {
+            document.getElementById("lisääOpiskelijaContent").style.display = "block";
+        }
+    }
+
+    function lisääOpettaja() {
+        var show = document.getElementById("lisääOpettajaContent").style.display;
+        if (show == "block") {
+            document.getElementById("lisääOpettajaContent").style.display = "none";
+        } else {
+            document.getElementById("lisääOpettajaContent").style.display = "block";
+        }
+    }
+
+    // function lisääKurssi() {
+    //     var show = document.getElementById("lisääKurssiContent").style.display;
+    //     if (show == "block") {
+    //         document.getElementById("lisääKurssiContent").style.display = "none";
+    //     } else {
+    //         document.getElementById("lisääKurssiContent").style.display = "block";
+    //     }
+    // }
+
+    function lisääTila() {
+        var show = document.getElementById("lisääTilaContent").style.display;
+        if (show == "block") {
+            document.getElementById("lisääTilaContent").style.display = "none";
+        } else {
+            document.getElementById("lisääTilaContent").style.display = "block";
+        }
     }
 
     //                            --------Näytettää lisäinfot----------

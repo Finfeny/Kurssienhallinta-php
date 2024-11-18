@@ -20,12 +20,15 @@ a {
     justify-content: space-around;
 }
 .nappi {
-    box-shadow: 0px 0px 60px -35px;    
     width: 20vw;
     height: 5vw;
-    font-size: 2vw;
-    background-color: white;
-    border-radius: 3px; 
+    font-size: 2vw;  
+    background-color: rgb(40, 135, 213);
+    color: white;
+    border-radius: 10px;
+    border-color: white;
+    border: 0;
+    box-shadow: 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
 .content {
@@ -52,6 +55,21 @@ img {
 .tunnus {
     border-top: inset;
     /* text-align: left; */
+}
+
+.lisaaInput {
+    max-width: 17vw;
+}
+
+.lisaaInputNappi {
+    max-width: 17vw;
+    width: 130px;
+    height: 30px;
+    background-color: rgb(40, 135, 213);
+    color: white;
+    border-color: white;
+    border: 0;
+    border-radius: 3px;
 }
 
 /* ----------------- Animaatiot --------------------*/
