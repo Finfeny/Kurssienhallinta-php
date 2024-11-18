@@ -9,6 +9,12 @@
 </head>
 <body>
     <h1 id="header">Kurssienhallinta<h1>
+    <div class="napit">
+        <button class="nappi" onClick="lisääOpiskelija()">Lisää</button>
+        <button class="nappi" onClick="lisääOpettaja()">Lisää</button>
+        <button class="nappi" onClick="lisääKurssi()">Lisää</button>
+        <button class="nappi" onClick="lisääTila()">Lisää</button>
+    </div>
     <div class="content">
         <div class="Container">
             <div onClick="toggledisplayOpiskelijat()">
@@ -64,14 +70,12 @@
                         $tilat = $conn->query($sql)->fetchAll();
                         echo $tilat[0]["Nimi"] . "<br><br>";
                         echo $kurssi["Alkupäivä"] . " " . $kurssi["Loppupäivä"];
-
-                        // echo "<button onclick='showChicken(this)'>Näytä ilmoittautumiset</button>" . "</a>";
-                        echo "<button onclick='showChicken(this, \".ilmoittautumiset\")'>Näytä ilmoittautumiset</button>";
+                        echo "<button onclick='showChicken(this, \"kurssi". $kurssi["Tunnus"] ."\")'>Näytä ilmoittautumiset</button></a>";
 
                         $sql = "SELECT * FROM `Kurssikirjautumiset` WHERE `Kurssi` = " . $kurssi["Tunnus"];
                         $ilmoittautumiset = $conn->query($sql)->fetchAll();
-                        echo "<div class='ilmoittautumiset' style='display: none;'>";
-                        echo "<button onclick='hideChicken()'>Piilota ilmoittautumiset</button>";
+                        echo "<div id='kurssi" . $kurssi["Tunnus"] . "' style='display: none;'>";
+                        echo "<button onclick='hideChicken(this, \"kurssi". $kurssi["Tunnus"] ."\")'>Piilota ilmoittautumiset</button>";
                         foreach ($ilmoittautumiset as $ilmoittautuminen) {
                             $sql = "SELECT * FROM `opiskelijat` WHERE `Opiskelijanumero` = " . $ilmoittautuminen["Opiskelija"];
                             $opiskelijat = $conn->query($sql)->fetchAll();
@@ -104,26 +108,22 @@
 
 <script>
 
+    //                            ------------Lisää napit--------------
+
+    function lisääOpiskelija() {
+        var etunimi = prompt("Anna opiskelijan etunimi");
+        var sukunimi = prompt
+    }
+
+    //                            --------Näytettää lisäinfot----------
+
+    
     function showChicken(clickedElement, selector) {
-        clickedElement.closest("div").querySelector(selector).style.display = "block";
+        document.getElementById(selector).style.display = "block";
     }
 
-    function hideChicken() {
-        document.getElementById("ilmoittautumiset").style.display = "none";
-    }
-
-    // function toggleDisplay(element, selector) {
-    //     var target = element.closest("div").querySelector(selector);
-    //     if (target.style.display === "none" || !target.style.display) {
-    //         target.style.display = "block";
-    //     } else {
-    //         target.style.display = "none";
-    //     }
-    // }
-
-
-    function hideChicken() {
-        document.getElementById("ilmoittautumiset").style.display = "none";
+    function hideChicken(clickedElement, selector) {
+        document.getElementById(selector).style.display = "none";
     }
     
     function toggledisplayInfo(clickedElement) {
