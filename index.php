@@ -70,8 +70,25 @@
                         $opiskelija["Syntymäpäivä"];
 
                         // Napit
-                        echo "<button class='chickenButton' onClick='lisääKirjautuminen(
-                        " . $opiskelija["Opiskelijanumero"] . ")'>Lisää kirjautuminen</button>";
+                        ?>
+                        <p class="pieniDesc">Lisää kirjautuminen</p>
+                        <div class="kurssikirjautuminen" style="display: block">
+                            <form action="lisaa.php" method="POST">
+                                <input type="hidden" name="formType" value="opiskelijanKurssikirjautuminen">
+                                <input type="hidden" name="Opiskelija" value="<?php echo $opiskelija["Opiskelijanumero"] ?>">
+                                <select class="lisaaInput" name="Kurssi">
+                                    <?php
+                                        $kurssit = $conn->query("SELECT * FROM `kurssit`")->fetchAll();
+                                        foreach ($kurssit as $kurssi) {
+                                            echo "<option value='" . $kurssi["Tunnus"] . "'>" . $kurssi["Nimi"] . "</option>";
+                                        }
+                                    ?>
+                                </select>
+                                <input class="lisaaInputNappi" type="submit" value="Lisää">
+                            </form>
+                        </div>
+                        <?php
+                        
                         echo "<button class='chickenButton' onclick='showChicken(this, \"opiskelija". $opiskelija["Opiskelijanumero"] ."\")'>Näytä kirjautumiset</button><br><br></a>";
 
                         $sql = "SELECT * FROM `Kurssikirjautumiset` WHERE `Opiskelija` = " . $opiskelija["Opiskelijanumero"];
@@ -81,9 +98,16 @@
                         foreach ($kirjautumiset as $kirjautuminen) {
                             $sql = "SELECT * FROM `kurssit` WHERE `Tunnus` = " . $kirjautuminen["Kurssi"];
                             $kurssit = $conn->query($sql)->fetchAll();
-                            echo "<a class='pieniDesc'>Nimi: " . $kurssit[0]["Nimi"] . "<br>
-                            Aloituspv: " . $kurssit[0]["Alkupäivä"] . "</a>";
-                        }
+                            echo "<a class='pieniDesc'>
+                            Nimi: " . $kurssit[0]["Nimi"] . "<br>" .
+                            "Aloituspv: " . $kurssit[0]["Alkupäivä"] .
+                            "<form action='poista.php' method='POST'>" .
+                            "<input type='hidden' name='formType' value='poistaOpiskelijaKirjautuminen'>" .
+                            "<input type='hidden' name='Opiskelija' value='" . $kirjautuminen["Opiskelija"] . "'>" .
+                            "<input type='hidden' name='Kurssi' value='" . $kirjautuminen["Kurssi"] . "'>" .
+                            "<input class='poistaInputNappi' type='submit' value='Poista'>" .
+                            "</form><br></a>";
+                            }
                         if (count($kirjautumiset) == 0) {
                             echo "<a class='pieniDesc'>Ei kirjautumisia</a>";
                         }
@@ -142,7 +166,10 @@
                     echo "<button class='chickenButton' onclick='hideChicken(this, \"opettaja". $opettaja["Tunnusnumero"] ."\")'>Piilota kurrsit</button>";
                     foreach ($kurssit as $kurssi) {
                         echo "<a class='pieniDesc'>Nimi: " . $kurssi["Nimi"] . "<br>
-                        Aloituspv: " . $kurssi["Alkupäivä"] . "</a>";
+                        Aloituspv: " . $kurssi["Alkupäivä"];
+                        $sql = "SELECT * FROM `tilat` WHERE `Tunnus` = " . $kurssi["Tila"];
+                        $tilat = $conn->query($sql)->fetchAll();
+                        echo "<br> Tila: " . $tilat[0]["Nimi"] . "</a>";
                     }
                     if (count($kurssit) == 0) {
                         echo "<a class='pieniDesc'>Ei kursseja</a>";
@@ -228,13 +255,33 @@
                         foreach ($kirjautumiset as $kirjautuminen) {
                             $sql = "SELECT * FROM `opiskelijat` WHERE `Opiskelijanumero` = " . $kirjautuminen["Opiskelija"];
                             $opiskelijat = $conn->query($sql)->fetchAll();
-                            echo "<a>Nimi: " . $opiskelijat[0]["Etunimi"] . "<br>Vuosikurssi: " . $opiskelijat[0]["Vuosikurssi"] . "</a>";
+                            echo "<a>Nimi: " . $opiskelijat[0]["Etunimi"] . "<br>Vuosikurssi: " . $opiskelijat[0]["Vuosikurssi"] . "</a><br>";
                         }
                         echo "</div></div>";
                     }
                 ?>
             </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                         <!-----------------------Tilat---------------------->
 
@@ -271,13 +318,60 @@
                     foreach ($tilat as $tila) {
                         echo "<div onClick='toggledisplayInfo(this)'>
                         <a class='tunnus'>" . $tila["Tunnus"] ." ". $tila["Nimi"] . "</a>" . 
-                        "<a class='Info'> Kapasiteetti " . $tila["Kapasiteetti"] . "</a></div>";
+                        "<a class='Info'> Kapasiteetti " .
+                        $tila["Kapasiteetti"] . "<br>" .
+                        "<br>Kurssit<br><br>";
+
+                        $sql = "SELECT * FROM `kurssit` WHERE `Tila` = " . $tila["Tunnus"];
+                        $kurssit = $conn->query($sql)->fetchAll();
+                        
+                        foreach ($kurssit as $kurssi) {
+                            $sql = "SELECT * FROM `opettajat` WHERE `Tunnusnumero` = " . $kurssi["Opettaja"];
+                            $opettaja = $conn->query($sql)->fetch();
+
+                            echo $kurssi["Nimi"] . "<br>" .
+                            $opettaja["Etunimi"] . "<br>" .
+                            $kurssi["Alkupäivä"] . " " . $kurssi["Loppupäivä"] . "<br><br>";
+                        }
+                        if (count($kurssit) == 0) {
+                            echo "Ei kursseja";
+                        }
+                        echo "</a></div>";
                     }
                 ?>
             </div>
         </div>
     </div>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <script>
 

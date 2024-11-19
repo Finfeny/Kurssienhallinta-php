@@ -24,6 +24,27 @@ if ($formType === "opiskelija")
     }
 }
 
+if ($formType === "poistaOpiskelijaKirjautuminen")
+{
+    var_dump($_POST);
+    $Opiskelija = $_POST['Opiskelija'];
+    $Kurssi = $_POST['Kurssi'];
+
+    $sql = "DELETE FROM kurssikirjautumiset WHERE Opiskelija = :Opiskelija AND Kurssi = :Kurssi;";
+
+    try {
+        $query = $conn->prepare($sql);
+        $query->execute([
+        'Opiskelija'=>$Opiskelija,
+        'Kurssi'=>$Kurssi
+        ]);
+
+        header('Location: index.php');
+    } catch (PDOException $e) {
+        die('Virhe: ' . $e->getMessage());
+    }
+}
+
                     //-----------------------Opettaja----------------------//
 
 if ($formType === "opettaja")

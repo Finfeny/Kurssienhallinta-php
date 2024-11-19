@@ -19,11 +19,28 @@ a {
     display: flex;
     justify-content: space-around;
 }
+
+.lisääNappi {
+    margin-left: 3vw; /* Laittaa napit hienosti keskitetyksi */
+
+    height: 5vw;
+    width: fit-content;
+    padding-inline: 1.7vw;
+    font-size: 3vw;  
+    background-color: rgb(63, 142, 206);
+    color: white;
+    border-radius: 1vw;
+    border-color: white;
+    border: 0;
+    box-shadow: 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
 .poistaNappi {
     margin-right: 3vw; /* Laittaa napit hienosti keskitetyksi */
     
-    width: 5vw;
     height: 5vw;
+    width: fit-content;
+    padding-inline: 2vw;
     font-size: 3vw;  
     background-color: rgb(228, 95, 95);
     color: white;
@@ -33,19 +50,6 @@ a {
     box-shadow: 0 6px 20px 0 rgba(0,0,0,0.19);
 }
 
-.lisääNappi {
-    margin-left: 3vw; /* Laittaa napit hienosti keskitetyksi */
-
-    width: 5vw;
-    height: 5vw;
-    font-size: 3vw;  
-    background-color: rgb(63, 142, 206);
-    color: white;
-    border-radius: 1vw;
-    border-color: white;
-    border: 0;
-    box-shadow: 0 6px 20px 0 rgba(0,0,0,0.19);
-}
 
 .pieniDesc {
     font-size: 2vw;
@@ -61,6 +65,17 @@ a {
     width: 130px;
     height: 30px;
     background-color: rgb(40, 135, 213);
+    color: white;
+    border-color: white;
+    border: 0;
+    border-radius: 3px;
+}
+
+.poistaInputNappi {
+    max-width: 17vw;
+    width: 130px;
+    height: 30px;
+    background-color: rgb(228, 95, 95);
     color: white;
     border-color: white;
     border: 0;
@@ -155,7 +170,7 @@ img {
 
 #tilat.show {
     opacity: 1;
-    max-height: 500px;
+    max-height: 1500px;
 }
 
 @media screen and (max-width: 1700px){

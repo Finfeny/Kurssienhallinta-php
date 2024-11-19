@@ -3,6 +3,7 @@ include 'dbyhteys.php';
 session_start();
 
 $formType = $_POST['formType'];
+echo "formType: ". $formType;
 
                     //-----------------------Opiskelija----------------------//
 
@@ -26,6 +27,27 @@ if ($formType === "opiskelija")
         ]);
         var_dump($query);
     
+        header('Location: index.php');
+    } catch (PDOException $e) {
+        die('Virhe: ' . $e->getMessage());
+    }
+}
+
+else if ($formType === "opiskelijanKurssikirjautuminen")
+{
+    $Opiskelija = $_POST['Opiskelija'];
+    $Kurssi = $_POST['Kurssi'];
+
+    $sql = "INSERT INTO kurssikirjautumiset (Opiskelija, Kurssi, `Kirjautumispäivä ja -aika`)
+            VALUES (:Opiskelija, :Kurssi, NOW());";
+    
+    try {
+        $query = $conn->prepare($sql);
+        $query->execute([
+        'Opiskelija'=>$Opiskelija,
+        'Kurssi'=>$Kurssi
+    ]);
+
         header('Location: index.php');
     } catch (PDOException $e) {
         die('Virhe: ' . $e->getMessage());
