@@ -10,23 +10,46 @@
 <body>
     <h1 id="header">Kurssienhallinta<h1>
     <div class="napit">
-        <button class="nappi" onClick="lisääOpiskelija()">Lisää</button>
-        <button class="nappi" onClick="lisääOpettaja()">Lisää</button>
-        <button class="nappi" onClick="lisääKurssi()">Lisää</button>
-        <button class="nappi" onClick="lisääTila()">Lisää</button>
+        <button class="lisääNappi" onClick="lisääOpiskelija()">+</button>
+        <button class="poistaNappi" onClick="poistaOpiskelija()">-</button>
+        <button class="lisääNappi" onClick="lisääOpettaja()">+</button>
+        <button class="poistaNappi" onClick="poistaOpettaja()">-</button>
+        <button class="lisääNappi" onClick="lisääKurssi()">+</button>
+        <button class="poistaNappi" onClick="poistaKurssi()">-</button>
+        <button class="lisääNappi" onClick="lisääTila()">+</button>
+        <button class="poistaNappi" onClick="poistaTila()">-</button>
     </div>
+
+                    <!-----------------------Opiskelijat---------------------->
+
     <div class="content">
         <div class="Container">
             <div id="lisääOpiskelijaContent" style="display: none">
-                <form action="lisaaOpiskelija.php" method="POST">
-                    <input class="lisaaInput" type="text" name="Etunimi">
-                    <input class="lisaaInput" type="text" name="Sukunimi">
+                <form action="lisaa.php" method="POST">
+                    <input type="hidden" name="formType" value="opiskelija">
+                    <input class="lisaaInput" type="text" name="Etunimi" placeholder="Etunimi">
+                    <input class="lisaaInput" type="text" name="Sukunimi" placeholder="Sukunimi">
+                    <p class="pieniDesc">Syntymäpäivä</p>
                     <input class="lisaaInput" type="date" name="Syntymäpäivä">
                     <select class="lisaaInput" name="Vuosikurssi"><br>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                     <input class="lisaaInputNappi" type="submit" value="Lisää">
+                </form>
+            </div>
+            <div id="poistaOpiskelijaContent" style="display: none">
+                <form action="poista.php" method="POST">
+                    <input type="hidden" name="formType" value="opiskelija">
+                    <select class="lisaaInput" name="Opiskelijanumero">
+                        <?php
+                            $opiskelijat = $conn->query("SELECT * FROM `opiskelijat`")->fetchAll();
+                            foreach ($opiskelijat as $opiskelija) {
+                                echo "<option value='" . $opiskelija["Opiskelijanumero"] . "'>" . $opiskelija["Etunimi"] . " " . $opiskelija["Sukunimi"] . "</option>";
+                            }
+                        ?>
+                    </select>
+                    <input class="lisaaInputNappi" type="submit" value="Poista">
                 </form>
             </div>
             <div onClick="toggledisplayOpiskelijat()">
@@ -38,19 +61,63 @@
                     $opiskelijat = $conn->query("SELECT * FROM `opiskelijat`")->fetchAll();
                     foreach ($opiskelijat as $opiskelija) {
                         echo "<div onClick='toggledisplayInfo(this)'>
-                        <a class='tunnus'>" . $opiskelija["Opiskelijanumero"] ." ". $opiskelija["Etunimi"] . "</a>" . 
-                        "<a class='Info'>" . $opiskelija["Sukunimi"] . "</a></div>";
+                        <a class='tunnus'>" . 
+                        $opiskelija["Opiskelijanumero"] ." ". 
+                        $opiskelija["Etunimi"] . "</a>" . 
+                        "<a class='Info'>" .
+                        $opiskelija["Sukunimi"] . "<br><br> Vuosikurssi ".
+                        $opiskelija["Vuosikurssi"] . "<br><br> Syntymäpäivä ".
+                        $opiskelija["Syntymäpäivä"];
+
+                        // Napit
+                        echo "<button class='chickenButton' onClick='lisääKirjautuminen(
+                        " . $opiskelija["Opiskelijanumero"] . ")'>Lisää kirjautuminen</button>";
+                        echo "<button class='chickenButton' onclick='showChicken(this, \"opiskelija". $opiskelija["Opiskelijanumero"] ."\")'>Näytä kirjautumiset</button><br><br></a>";
+
+                        $sql = "SELECT * FROM `Kurssikirjautumiset` WHERE `Opiskelija` = " . $opiskelija["Opiskelijanumero"];
+                        $kirjautumiset = $conn->query($sql)->fetchAll();
+                        echo "<div id='opiskelija" . $opiskelija["Opiskelijanumero"] . "' style='display: none;'>";
+                        echo "<button class='chickenButton' onclick='hideChicken(this, \"opiskelija". $opiskelija["Opiskelijanumero"] ."\")'>Piilota kirjautumiset</button>";
+                        foreach ($kirjautumiset as $kirjautuminen) {
+                            $sql = "SELECT * FROM `kurssit` WHERE `Tunnus` = " . $kirjautuminen["Kurssi"];
+                            $kurssit = $conn->query($sql)->fetchAll();
+                            echo "<a class='pieniDesc'>Nimi: " . $kurssit[0]["Nimi"] . "<br>
+                            Aloituspv: " . $kurssit[0]["Alkupäivä"] . "</a>";
+                        }
+                        if (count($kirjautumiset) == 0) {
+                            echo "<a class='pieniDesc'>Ei kirjautumisia</a>";
+                        }
+                        echo "</div></div>";
+                        
                     }
                 ?>
             </div>
         </div>
+
+                        <!-----------------------Opettajat---------------------->
+        
         <div class="Container">
             <div id="lisääOpettajaContent" style="display: none">
-                <form action="lisaaOpettaja.php" method="POST">
-                    <input class="lisaaInput" type="text" name="Etunimi">
-                    <input class="lisaaInput" type="text" name="Sukunimi">
-                    <input class="lisaaInput" type="text" name="Aine">
+                <form action="lisaa.php" method="POST">
+                    <input type="hidden" name="formType" value="opettaja">
+                    <input class="lisaaInput" type="text" name="Etunimi" placeholder="Etunimi">
+                    <input class="lisaaInput" type="text" name="Sukunimi" placeholder="Sukunimi">
+                    <input class="lisaaInput" type="text" name="Aine" placeholder="Aine">
                     <input class="lisaaInputNappi" type="submit" value="Lisää">
+                </form>
+            </div>
+            <div id="poistaOpettajaContent" style="display: none">
+                <form action="poista.php" method="POST">
+                    <input type="hidden" name="formType" value="opettaja">
+                    <select class="lisaaInput" name="Tunnusnumero">
+                        <?php
+                            $opettajat = $conn->query("SELECT * FROM `opettajat`")->fetchAll();
+                            foreach ($opettajat as $opettaja) {
+                                echo "<option value='" . $opettaja["Tunnusnumero"] . "'>" . $opettaja["Etunimi"] . " " . $opettaja["Sukunimi"] . "</option>";
+                            }
+                        ?>
+                    </select>
+                    <input class="lisaaInputNappi" type="submit" value="Poista">
                 </form>
             </div>
             <div onClick="toggledisplayOpettajat()">
@@ -63,12 +130,74 @@
                 foreach ($opettajat as $opettaja) {
                     echo "<div onClick='toggledisplayInfo(this)'>
                     <a class='tunnus'>" . $opettaja["Tunnusnumero"] ." ". $opettaja["Etunimi"] . "</a>" . 
-                    "<a class='Info'>" . $opettaja["Sukunimi"] . "</a></div>";
+                    "<a class='Info'>" .
+                    $opettaja["Sukunimi"] . "<br><br> Aine ".
+                    $opettaja["Aine"];
+
+                    echo "<button class='chickenButton' onclick='showChicken(this, \"opettaja". $opettaja["Tunnusnumero"] ."\")'>Näytä kurrsit</button></a>";
+
+                    $sql = "SELECT * FROM `kurssit` WHERE `Opettaja` = " . $opettaja["Tunnusnumero"];
+                    $kurssit = $conn->query($sql)->fetchAll();
+                    echo "<div id='opettaja" . $opettaja["Tunnusnumero"] . "' style='display: none;'>";
+                    echo "<button class='chickenButton' onclick='hideChicken(this, \"opettaja". $opettaja["Tunnusnumero"] ."\")'>Piilota kurrsit</button>";
+                    foreach ($kurssit as $kurssi) {
+                        echo "<a class='pieniDesc'>Nimi: " . $kurssi["Nimi"] . "<br>
+                        Aloituspv: " . $kurssi["Alkupäivä"] . "</a>";
+                    }
+                    if (count($kurssit) == 0) {
+                        echo "<a class='pieniDesc'>Ei kursseja</a>";
+                    }
+
+                    echo "</div></div>";
                 }
                 ?>
             </div>
         </div>
+
+                        <!-----------------------Kurssit---------------------->
+
         <div class="Container">
+            <div id="lisääKurssiContent" style="display: none">
+                <form action="lisaa.php" method="POST">
+                    <input type="hidden" name="formType" value="kurssi">
+                    <input class="lisaaInput" type="text" name="Nimi" placeholder="Nimi">
+                    <input class="lisaaInput" type="text" name="Kuvaus" placeholder="Kuvaus">
+                    <select class="lisaaInput" name="Opettaja">
+                        <?php
+                            $opettajat = $conn->query("SELECT * FROM `opettajat`")->fetchAll();
+                            foreach ($opettajat as $opettaja) {
+                                echo "<option value='" . $opettaja["Tunnusnumero"] . "'>" . $opettaja["Etunimi"] . " " . $opettaja["Sukunimi"] . "</option>";
+                            }
+                        ?>
+                    </select>
+                    <select class="lisaaInput" name="Tila">
+                        <?php
+                            $tilat = $conn->query("SELECT * FROM `tilat`")->fetchAll();
+                            foreach ($tilat as $tila) {
+                                echo "<option value='" . $tila["Tunnus"] . "'>" . $tila["Nimi"] . "</option>";
+                            }
+                        ?>
+                    </select>
+                    <p class="pieniDesc">Alku ja loppupäivä</p>
+                    <input class="lisaaInput" type="date" name="Alkupäivä">
+                    <input class="lisaaInput" type="date" name="Loppupäivä">
+                    <input class="lisaaInputNappi" type="submit" value="Lisää">
+                </form>
+            </div>
+            <div id="poistaKurssiContent" style="display: none">
+                <form action="poista.php" method="POST">
+                    <input type="hidden" name="formType" value="kurssi">
+                    <select class="lisaaInput" name="Tunnus">
+                        <?php
+                            $kurssit = $conn->query("SELECT * FROM `kurssit`")->fetchAll();
+                            foreach ($kurssit as $kurssi) {
+                                echo "<option value='" . $kurssi["Tunnus"] . "'>" . $kurssi["Nimi"] . "</option>";
+                            }
+                        ?>
+                    </select>
+                    <input class="lisaaInputNappi" type="submit" value="Poista">
+                </form>
+            </div>
             <div  onClick="toggledisplayKurssit()">
                 <h1 class="Otsikko">Kurssit</h1>
                 <img src="./svg/calendar.svg">
@@ -90,30 +219,46 @@
                         $tilat = $conn->query($sql)->fetchAll();
                         echo $tilat[0]["Nimi"] . "<br><br>";
                         echo $kurssi["Alkupäivä"] . " " . $kurssi["Loppupäivä"];
-                        echo "<button onclick='showChicken(this, \"kurssi". $kurssi["Tunnus"] ."\")'>Näytä ilmoittautumiset</button></a>";
+                        echo "<button class='chickenButton' onclick='showChicken(this, \"kurssi". $kurssi["Tunnus"] ."\")'>Näytä kirjautumiset</button></a>";
 
                         $sql = "SELECT * FROM `Kurssikirjautumiset` WHERE `Kurssi` = " . $kurssi["Tunnus"];
-                        $ilmoittautumiset = $conn->query($sql)->fetchAll();
+                        $kirjautumiset = $conn->query($sql)->fetchAll();
                         echo "<div id='kurssi" . $kurssi["Tunnus"] . "' style='display: none;'>";
-                        echo "<button onclick='hideChicken(this, \"kurssi". $kurssi["Tunnus"] ."\")'>Piilota ilmoittautumiset</button>";
-                        foreach ($ilmoittautumiset as $ilmoittautuminen) {
-                            $sql = "SELECT * FROM `opiskelijat` WHERE `Opiskelijanumero` = " . $ilmoittautuminen["Opiskelija"];
+                        echo "<button class='chickenButton' onclick='hideChicken(this, \"kurssi". $kurssi["Tunnus"] ."\")'>Piilota kirjautumiset</button>";
+                        foreach ($kirjautumiset as $kirjautuminen) {
+                            $sql = "SELECT * FROM `opiskelijat` WHERE `Opiskelijanumero` = " . $kirjautuminen["Opiskelija"];
                             $opiskelijat = $conn->query($sql)->fetchAll();
                             echo "<a>Nimi: " . $opiskelijat[0]["Etunimi"] . "<br>Vuosikurssi: " . $opiskelijat[0]["Vuosikurssi"] . "</a>";
                         }
                         echo "</div></div>";
                     }
                 ?>
-
             </div>
         </div>
+
+                        <!-----------------------Tilat---------------------->
+
         <div class="Container">
             <div id="lisääTilaContent" style="display: none">
-                <form action="lisaaTila.php" method="POST">
-                    <input class="lisaaInput" type="text" name="Tunnus">
-                    <input class="lisaaInput" type="text" name="Nimi">
-                    <input class="lisaaInput" type="text" name="Kapasiteetti">
+                <form action="lisaa.php" method="POST">
+                    <input type="hidden" name="formType" value="tila">
+                    <input class="lisaaInput" type="text" name="Nimi" placeholder="Nimi">
+                    <input class="lisaaInput" type="text" name="Kapasiteetti" placeholder="Kapasiteetti">
                     <input class="lisaaInputNappi" type="submit" value="Lisää">
+                </form>
+            </div>
+            <div id="poistaTilaContent" style="display: none">
+                <form action="poista.php" method="POST">
+                    <input type="hidden" name="formType" value="tila">
+                    <select class="lisaaInput" name="Tunnus">
+                        <?php
+                            $tilat = $conn->query("SELECT * FROM `tilat`")->fetchAll();
+                            foreach ($tilat as $tila) {
+                                echo "<option value='" . $tila["Tunnus"] . "'>" . $tila["Nimi"] . "</option>";
+                            }
+                        ?>
+                    </select>
+                    <input class="lisaaInputNappi" type="submit" value="Poista">
                 </form>
             </div>
             <div onClick="toggledisplayTilat()">
@@ -156,14 +301,14 @@
         }
     }
 
-    // function lisääKurssi() {
-    //     var show = document.getElementById("lisääKurssiContent").style.display;
-    //     if (show == "block") {
-    //         document.getElementById("lisääKurssiContent").style.display = "none";
-    //     } else {
-    //         document.getElementById("lisääKurssiContent").style.display = "block";
-    //     }
-    // }
+    function lisääKurssi() {
+        var show = document.getElementById("lisääKurssiContent").style.display;
+        if (show == "block") {
+            document.getElementById("lisääKurssiContent").style.display = "none";
+        } else {
+            document.getElementById("lisääKurssiContent").style.display = "block";
+        }
+    }
 
     function lisääTila() {
         var show = document.getElementById("lisääTilaContent").style.display;
@@ -171,6 +316,44 @@
             document.getElementById("lisääTilaContent").style.display = "none";
         } else {
             document.getElementById("lisääTilaContent").style.display = "block";
+        }
+    }
+
+    //                            ------------Poista napit--------------
+
+    function poistaOpiskelija() {
+        var show = document.getElementById("poistaOpiskelijaContent").style.display;
+        if (show == "block") {
+            document.getElementById("poistaOpiskelijaContent").style.display = "none";
+        } else {
+            document.getElementById("poistaOpiskelijaContent").style.display = "block";
+        }
+    }
+
+    function poistaOpettaja() {
+        var show = document.getElementById("poistaOpettajaContent").style.display;
+        if (show == "block") {
+            document.getElementById("poistaOpettajaContent").style.display = "none";
+        } else {
+            document.getElementById("poistaOpettajaContent").style.display = "block";
+        }
+    }
+
+    function poistaKurssi() {
+        var show = document.getElementById("poistaKurssiContent").style.display;
+        if (show == "block") {
+            document.getElementById("poistaKurssiContent").style.display = "none";
+        } else {
+            document.getElementById("poistaKurssiContent").style.display = "block";
+        }
+    }
+
+    function poistaTila() {
+        var show = document.getElementById("poistaTilaContent").style.display;
+        if (show == "block") {
+            document.getElementById("poistaTilaContent").style.display = "none";
+        } else {
+            document.getElementById("poistaTilaContent").style.display = "block";
         }
     }
 
