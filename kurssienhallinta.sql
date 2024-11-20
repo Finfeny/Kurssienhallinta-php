@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 -- Rakenne taululle `kurssikirjautuminen`
 --
 
-CREATE TABLE `kurssikirjautuminen` (
+CREATE TABLE `kurssikirjautumiset` (
   `Tunnus` int(11) NOT NULL,
   `Opiskelija` varchar(255) NOT NULL,
   `Kurssi` varchar(255) NOT NULL,

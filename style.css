@@ -13,51 +13,65 @@ a {
     /* border-top: inset; */
     padding: 5px;
     /* text-align: left; */
+    font-size: 30px;
 }
 
-.napit {
+.content {
     display: flex;
     justify-content: space-around;
+    /* padding-top: 30px; */
+    align-items: flex-start;
 }
+
+.Container {
+    width: 21vw;
+    border-radius: 10px; 
+    box-shadow: 0px 20px 80px -60px;
+    text-align: center;
+}
+
+img {
+    max-width: 15vw;
+}
+
+.tunnus {
+    border-top: inset;
+}
+
+/* -----------------Napit------------------- */
 
 .lisääNappi {
     margin-left: 3vw; /* Laittaa napit hienosti keskitetyksi */
-
-    height: 5vw;
+    height: 85px;
     width: fit-content;
     padding-inline: 1.7vw;
-    font-size: 3vw;  
+    margin-bottom: 10px;
+    font-size: 50px;  
     background-color: rgb(63, 142, 206);
     color: white;
     border-radius: 1vw;
     border-color: white;
     border: 0;
-    box-shadow: 0 6px 20px 0 rgba(0,0,0,0.19);
+    box-shadow: 0 0 20px -4px rgba(0,0,0,0.19);
 }
 
 .poistaNappi {
     margin-right: 3vw; /* Laittaa napit hienosti keskitetyksi */
-    
-    height: 5vw;
+    height: 85px;
     width: fit-content;
     padding-inline: 2vw;
-    font-size: 3vw;  
+    font-size: 50px;  
     background-color: rgb(228, 95, 95);
     color: white;
     border-radius: 1vw;
     border-color: white;
     border: 0;
-    box-shadow: 0 6px 20px 0 rgba(0,0,0,0.19);
-}
-
-
-.pieniDesc {
-    font-size: 2vw;
-    margin-bottom: 0;
+    box-shadow: 0 0 20px -4px rgba(0,0,0,0.19);
 }
 
 .lisaaInput {
     max-width: 17vw;
+    margin-block: 3px;
 }
 
 .lisaaInputNappi {
@@ -69,6 +83,7 @@ a {
     border-color: white;
     border: 0;
     border-radius: 3px;
+    margin: 10px;
 }
 
 .poistaInputNappi {
@@ -82,37 +97,30 @@ a {
     border-radius: 3px;
 }
 
-.content {
-    display: flex;
-    justify-content: space-around;
-    padding-top: 30px;
-    align-items: flex-start;
-}
-
-.Container {
-    width: 21vw;
-    border-radius: 10px; 
-    box-shadow: 0px 0px 60px -35px;
-    text-align: center;
-}
-
-img {
-    max-width: 15vw;
-}
-
-.tunnus {
-    border-top: inset;
-}
 
 .chickenButton {
-    height: 3vw;
-    width: 13vw;
-    margin-top: 2vw;
+    max-width: 17vw;
+    width: 150px;
+    height: 40px;
+    background-color: rgb(40, 135, 213);
+    color: white;
+    border-color: white;
+    border: 0;
+    border-radius: 3px;
+    font-size: 16px;
+    margin: 10px;
 }
 
-/* ----------------- Animaatiot --------------------*/
+.pieniDesc {
+    font-size: 2vw;
+    margin-bottom: 0;
+}
+
+
+                                /* --------------------------------- Animaatiot -------------------------------------*/
 
 .Info {
+    padding: 0;
     overflow: hidden;
     opacity: 0;
     max-height: 0;
@@ -123,6 +131,42 @@ img {
 .Info.show {
     opacity: 1;
     max-height: 450px;
+}
+
+#header {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    margin: 0px;
+    transition:
+        margin 0.5s linear,
+        opacity 0.5s linear,
+        max-height 0.75s cubic-bezier(.48,.49,.13,.89);
+}
+
+#header.show {
+    opacity: 1;
+    max-height: 100px;
+    margin: 46px;
+}
+
+#napit {
+    display: flex;
+    justify-content: space-around;
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    margin: 0px;
+    transition:
+        margin 0.5s linear,
+        opacity 0.5s linear,
+        max-height 0.75s cubic-bezier(.48,.49,.13,.89);
+}
+
+#napit.show {
+    margin-block: 20px;
+    opacity: 1;
+    max-height: 100px;
 }
 
 #opiskelijat {
@@ -173,12 +217,212 @@ img {
     max-height: 1500px;
 }
 
+/* -----------------SVG animaatiot--------------------*/
+
+#opiskelijaSVG {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.5s linear, max-height 0.75s cubic-bezier(.48,.49,.13,.89);
+}
+
+#opiskelijaSVG.show {
+    opacity: 1;
+    max-height: 15vw;
+    max-width: 15vw;
+}
+
+#opettajaSVG {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.5s linear, max-height 0.75s cubic-bezier(.48,.49,.13,.89);
+}
+
+#opettajaSVG.show {
+    opacity: 1;
+    max-height: 15vw;
+    max-width: 15vw;
+}
+
+#kurssiSVG {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.5s linear, max-height 0.75s cubic-bezier(.48,.49,.13,.89);
+}
+
+#kurssiSVG.show {
+    opacity: 1;
+    max-height: 15vw;
+    max-width: 15vw;
+}
+
+#tilaSVG {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.5s linear, max-height 0.75s cubic-bezier(.48,.49,.13,.89);
+}
+
+#tilaSVG.show {
+    opacity: 1;
+    max-height: 15vw;
+    max-width: 15vw;
+}
+
+/* -----------------Lisää ja poista nappien animaatiot------------------- */
+
+#lisääOpiskelijaContent {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    transition: margin-top 0.3s linear, opacity 0.5s linear, max-height 0.5s cubic-bezier(.48,.49,.13,.89);
+}
+
+#lisääOpiskelijaContent.show {
+    opacity: 1;
+    max-height: 220px;
+    margin-top: 15px;
+}
+
+#poistaOpiskelijaContent {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    transition: margin-top 0.3s linear, opacity 0.5s linear, max-height 0.4s cubic-bezier(.48,.49,.13,.89);
+}
+
+#poistaOpiskelijaContent.show {
+    opacity: 1;
+    max-height: 75px;
+    margin-top: 10px;
+}
+
+#lisääOpettajaContent {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    transition: margin-top 0.3s linear, opacity 0.5s linear, max-height 0.5s cubic-bezier(.48,.49,.13,.89);
+}
+
+#lisääOpettajaContent.show {
+    opacity: 1;
+    max-height: 160px;
+    margin-top: 15px;
+}
+
+#poistaOpettajaContent {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    transition: margin-top 0.3s linear, opacity 0.5s linear, max-height 0.4s cubic-bezier(.48,.49,.13,.89);
+}
+
+#poistaOpettajaContent.show {
+    opacity: 1;
+    max-height: 75px;
+    margin-top: 10px;
+}
+
+#lisääKurssiContent {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    transition: margin-top 0.3s linear, opacity 0.5s linear, max-height 0.5s cubic-bezier(.48,.49,.13,.89);
+}
+
+#lisääKurssiContent.show {
+    opacity: 1;
+    max-height: 220px;
+    margin-top: 15px;
+}
+
+#poistaKurssiContent {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    transition: margin-top 0.3s linear, opacity 0.5s linear, max-height 0.4s cubic-bezier(.48,.49,.13,.89);
+}
+
+#poistaKurssiContent.show {
+    opacity: 1;
+    max-height: 75px;
+    margin-top: 10px;
+}
+
+#lisääTilaContent {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    transition: margin-top 0.3s linear, opacity 0.5s linear, max-height 0.5s cubic-bezier(.48,.49,.13,.89);
+}
+
+#lisääTilaContent.show {
+    opacity: 1;
+    max-height: 180px;
+    margin-top: 15px;
+}
+
+#poistaTilaContent {
+    overflow: hidden;
+    opacity: 0;
+    max-height: 0;
+    margin-top: 0;
+    transition: margin-top 0.3s linear, opacity 0.5s linear, max-height 0.4s cubic-bezier(.48,.49,.13,.89);
+}
+
+#poistaTilaContent.show {
+    opacity: 1;
+    max-height: 75px;
+    margin-top: 10px;
+}
+
 @media screen and (max-width: 1700px){
     a {
         font-size: 2.2vw;
     }
     
+    /* .Otsikko {
+        font-size: 3.5vw;
+    } */
+
+    .lisääNappi {
+        height: 5vw;
+        font-size: 3vw;  
+    }
+
+    .poistaNappi {
+        height: 5vw;
+        font-size: 3vw;  
+    }
+}
+
+@media screen and (max-width: 1000px){
+    
     .Otsikko {
         font-size: 3.5vw;
+    }
+
+    #header {
+        font-size: 7vw;
+    }
+
+    a {
+        font-size: 3vw;
+    }
+}
+
+@media screen and (min-width: 3000px){
+
+    .pieniDesc {
+        font-size: 40px;
     }
 }

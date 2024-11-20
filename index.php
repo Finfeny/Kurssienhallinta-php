@@ -8,8 +8,8 @@
     <title>Kurssienhallinta</title>
 </head>
 <body>
-    <h1 id="header">Kurssienhallinta<h1>
-    <div class="napit">
+    <h1 id="header" class="show">Kurssienhallinta</h1>
+    <div id="napit" class="show">
         <button class="lisääNappi" onClick="lisääOpiskelija()">+</button>
         <button class="poistaNappi" onClick="poistaOpiskelija()">-</button>
         <button class="lisääNappi" onClick="lisääOpettaja()">+</button>
@@ -24,12 +24,12 @@
 
     <div class="content">
         <div class="Container">
-            <div id="lisääOpiskelijaContent" style="display: none">
+            <div id="lisääOpiskelijaContent">
                 <form action="lisaa.php" method="POST">
                     <input type="hidden" name="formType" value="opiskelija">
                     <input class="lisaaInput" type="text" name="Etunimi" placeholder="Etunimi">
                     <input class="lisaaInput" type="text" name="Sukunimi" placeholder="Sukunimi">
-                    <p class="pieniDesc">Syntymäpäivä</p>
+                    <p class="pieniDesc">Syntymäpäivä ja vuosikurssi</p>
                     <input class="lisaaInput" type="date" name="Syntymäpäivä">
                     <select class="lisaaInput" name="Vuosikurssi"><br>
                         <option value="1">1</option>
@@ -38,7 +38,7 @@
                     <input class="lisaaInputNappi" type="submit" value="Lisää">
                 </form>
             </div>
-            <div id="poistaOpiskelijaContent" style="display: none">
+            <div id="poistaOpiskelijaContent">
                 <form action="poista.php" method="POST">
                     <input type="hidden" name="formType" value="opiskelija">
                     <select class="lisaaInput" name="Opiskelijanumero">
@@ -54,7 +54,7 @@
             </div>
             <div onClick="toggledisplayOpiskelijat()">
                 <h1 class="Otsikko">Opiskelijat</h1>
-                <img src="./svg/school.svg">
+                <img class="show" id="opiskelijaSVG" src="./svg/school.svg">
             </div>
             <div id="opiskelijat">
                 <?php
@@ -121,7 +121,7 @@
                         <!-----------------------Opettajat---------------------->
         
         <div class="Container">
-            <div id="lisääOpettajaContent" style="display: none">
+            <div id="lisääOpettajaContent">
                 <form action="lisaa.php" method="POST">
                     <input type="hidden" name="formType" value="opettaja">
                     <input class="lisaaInput" type="text" name="Etunimi" placeholder="Etunimi">
@@ -130,7 +130,7 @@
                     <input class="lisaaInputNappi" type="submit" value="Lisää">
                 </form>
             </div>
-            <div id="poistaOpettajaContent" style="display: none">
+            <div id="poistaOpettajaContent"">
                 <form action="poista.php" method="POST">
                     <input type="hidden" name="formType" value="opettaja">
                     <select class="lisaaInput" name="Tunnusnumero">
@@ -146,7 +146,7 @@
             </div>
             <div onClick="toggledisplayOpettajat()">
                 <h1 class="Otsikko">Opettajat</h1>
-                <img src="./svg/person.svg">
+                <img class="show" id="opettajaSVG" src="./svg/person.svg">
             </div>
             <div id="opettajat">
             <?php
@@ -184,7 +184,7 @@
                         <!-----------------------Kurssit---------------------->
 
         <div class="Container">
-            <div id="lisääKurssiContent" style="display: none">
+            <div id="lisääKurssiContent">
                 <form action="lisaa.php" method="POST">
                     <input type="hidden" name="formType" value="kurssi">
                     <input class="lisaaInput" type="text" name="Nimi" placeholder="Nimi">
@@ -211,7 +211,7 @@
                     <input class="lisaaInputNappi" type="submit" value="Lisää">
                 </form>
             </div>
-            <div id="poistaKurssiContent" style="display: none">
+            <div id="poistaKurssiContent">
                 <form action="poista.php" method="POST">
                     <input type="hidden" name="formType" value="kurssi">
                     <select class="lisaaInput" name="Tunnus">
@@ -227,7 +227,7 @@
             </div>
             <div  onClick="toggledisplayKurssit()">
                 <h1 class="Otsikko">Kurssit</h1>
-                <img src="./svg/calendar.svg">
+                <img class="show" id="kurssiSVG" src="./svg/calendar.svg">
             </div>
                 <div id="kurssit">
                 <?php
@@ -263,30 +263,10 @@
             </div>
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         <!-----------------------Tilat---------------------->
 
         <div class="Container">
-            <div id="lisääTilaContent" style="display: none">
+            <div id="lisääTilaContent">
                 <form action="lisaa.php" method="POST">
                     <input type="hidden" name="formType" value="tila">
                     <input class="lisaaInput" type="text" name="Nimi" placeholder="Nimi">
@@ -294,7 +274,7 @@
                     <input class="lisaaInputNappi" type="submit" value="Lisää">
                 </form>
             </div>
-            <div id="poistaTilaContent" style="display: none">
+            <div id="poistaTilaContent">
                 <form action="poista.php" method="POST">
                     <input type="hidden" name="formType" value="tila">
                     <select class="lisaaInput" name="Tunnus">
@@ -310,7 +290,7 @@
             </div>
             <div onClick="toggledisplayTilat()">
                 <h1 class="Otsikko">Tilat</h1>
-                <img src="./svg/room.svg">
+                <img class="show" id="tilaSVG" src="./svg/room.svg">
             </div>
             <div id="tilat">
                 <?php
@@ -338,117 +318,164 @@
                         }
                         echo "</a></div>";
                     }
-                ?>
+                    ?>
             </div>
         </div>
     </div>
 </body>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script>
-
-    //                            ------------Lisää napit--------------
-
-    function lisääOpiskelija() {
-        var show = document.getElementById("lisääOpiskelijaContent").style.display;
-        if (show == "block") {
-            document.getElementById("lisääOpiskelijaContent").style.display = "none";
+    
+    function headerDisplay() {
+        if  (document.getElementById("opiskelijat").classList.contains("show") == true ||
+            document.getElementById("opettajat").classList.contains("show") == true ||
+            document.getElementById("kurssit").classList.contains("show") == true ||
+            document.getElementById("tilat").classList.contains("show") == true)
+            {
+            document.getElementById("header").classList.remove("show");
+            // document.getElementById("header").style.display = "none";
         } else {
-            document.getElementById("lisääOpiskelijaContent").style.display = "block";
+            document.getElementById("header").classList.add("show");
+            // document.getElementById("header").style.display = "block";
         }
     }
 
-    function lisääOpettaja() {
-        var show = document.getElementById("lisääOpettajaContent").style.display;
-        if (show == "block") {
-            document.getElementById("lisääOpettajaContent").style.display = "none";
+    function toggledisplayOpiskelijat() {
+        var element = document.getElementById("opiskelijat");
+        if (element.classList.contains("show")) {
+            element.classList.remove("show");
+            document.getElementById("opiskelijaSVG").classList.add("show");
+            
+            headerDisplay()
         } else {
-            document.getElementById("lisääOpettajaContent").style.display = "block";
+            element.classList.add("show");
+            
+            document.getElementById("opiskelijaSVG").classList.remove("show");
+            headerDisplay()
+        }
+    }
+    
+    function toggledisplayOpettajat() {
+        var element = document.getElementById("opettajat");
+        if (element.classList.contains("show")) {
+            element.classList.remove("show");
+            document.getElementById("opettajaSVG").classList.add("show");
+            headerDisplay()
+        } else {
+            element.classList.add("show");
+            document.getElementById("opettajaSVG").classList.remove("show");
+            headerDisplay()
+        }
+    }
+    
+    function toggledisplayKurssit() {
+        var element = document.getElementById("kurssit");
+        if (element.classList.contains("show")) {
+            element.classList.remove("show");
+            document.getElementById("kurssiSVG").classList.add("show");
+            headerDisplay()
+        } else {
+            element.classList.add("show");
+            document.getElementById("kurssiSVG").classList.remove("show");
+            headerDisplay()
+        }
+    }
+    
+    function toggledisplayTilat() {
+        var element = document.getElementById("tilat");
+        if (element.classList.contains("show")) {
+            element.classList.remove("show");
+            document.getElementById("tilaSVG").classList.add("show");
+            headerDisplay()
+        } else {
+            element.classList.add("show");
+            document.getElementById("tilaSVG").classList.remove("show");
+            headerDisplay()
+        }
+    }
+    
+    //                            ------------Lisää napit--------------
+
+    function lisääOpiskelija() {
+        var show = document.getElementById("lisääOpiskelijaContent").classList.contains("show");
+        if (show) {
+            document.getElementById("lisääOpiskelijaContent").classList.remove("show");
+        } else {
+            document.getElementById("lisääOpiskelijaContent").classList.add("show");
+        }
+    }
+    
+    function lisääOpettaja() {
+        var show = document.getElementById("lisääOpettajaContent").classList.contains("show");
+        if (show) {
+            document.getElementById("lisääOpettajaContent").classList.remove("show");
+        } else {
+            document.getElementById("lisääOpettajaContent").classList.add("show");
         }
     }
 
     function lisääKurssi() {
-        var show = document.getElementById("lisääKurssiContent").style.display;
-        if (show == "block") {
-            document.getElementById("lisääKurssiContent").style.display = "none";
+        var show = document.getElementById("lisääKurssiContent").classList.contains("show");
+        if (show) {
+            document.getElementById("lisääKurssiContent").classList.remove("show");
         } else {
-            document.getElementById("lisääKurssiContent").style.display = "block";
+            document.getElementById("lisääKurssiContent").classList.add("show");
         }
     }
 
     function lisääTila() {
-        var show = document.getElementById("lisääTilaContent").style.display;
-        if (show == "block") {
-            document.getElementById("lisääTilaContent").style.display = "none";
+        var show = document.getElementById("lisääTilaContent").classList.contains("show");
+        if (show) {
+            document.getElementById("lisääTilaContent").classList.remove("show");
         } else {
-            document.getElementById("lisääTilaContent").style.display = "block";
+            document.getElementById("lisääTilaContent").classList.add("show");
         }
     }
 
     //                            ------------Poista napit--------------
 
     function poistaOpiskelija() {
-        var show = document.getElementById("poistaOpiskelijaContent").style.display;
-        if (show == "block") {
-            document.getElementById("poistaOpiskelijaContent").style.display = "none";
+        var show = document.getElementById("poistaOpiskelijaContent").classList.contains("show");
+        if (show) {
+            document.getElementById("poistaOpiskelijaContent").classList.remove("show");
         } else {
-            document.getElementById("poistaOpiskelijaContent").style.display = "block";
+            document.getElementById("poistaOpiskelijaContent").classList.add("show");
         }
     }
 
     function poistaOpettaja() {
-        var show = document.getElementById("poistaOpettajaContent").style.display;
-        if (show == "block") {
-            document.getElementById("poistaOpettajaContent").style.display = "none";
+        var show = document.getElementById("poistaOpettajaContent").classList.contains("show");
+        if (show) {
+            document.getElementById("poistaOpettajaContent").classList.remove("show");
         } else {
-            document.getElementById("poistaOpettajaContent").style.display = "block";
+            document.getElementById("poistaOpettajaContent").classList.add("show");
         }
     }
 
     function poistaKurssi() {
-        var show = document.getElementById("poistaKurssiContent").style.display;
-        if (show == "block") {
-            document.getElementById("poistaKurssiContent").style.display = "none";
+        var show = document.getElementById("poistaKurssiContent").classList.contains("show");
+        if (show) {
+            document.getElementById("poistaKurssiContent").classList.remove("show");
         } else {
-            document.getElementById("poistaKurssiContent").style.display = "block";
+            document.getElementById("poistaKurssiContent").classList.add("show");
         }
     }
 
     function poistaTila() {
-        var show = document.getElementById("poistaTilaContent").style.display;
-        if (show == "block") {
-            document.getElementById("poistaTilaContent").style.display = "none";
+        var show = document.getElementById("poistaTilaContent").classList.contains("show");
+        if (show) {
+            document.getElementById("poistaTilaContent").classList.remove("show");
         } else {
-            document.getElementById("poistaTilaContent").style.display = "block";
+            document.getElementById("poistaTilaContent").classList.add("show");
         }
+    }
+    
+    function piilotaNapit() {
+        document.getElementById("napit").classList.remove("show");
+    }
+    
+    function näytäNapit() {
+        document.getElementById("napit").classList.add("show");
     }
 
     //                            --------Näytettää lisäinfot----------
@@ -466,44 +493,10 @@
         var infoElement = clickedElement.querySelector(".Info");
         if (infoElement.classList.contains("show")) {
             infoElement.classList.remove("show");
+            näytäNapit()
         } else {
             infoElement.classList.add("show");
-        }
-    }
-    
-    function toggledisplayOpiskelijat() {
-        var element = document.getElementById("opiskelijat");
-        if (element.classList.contains("show")) {
-            element.classList.remove("show");
-        } else {
-            element.classList.add("show");
-        }
-    }
-
-    function toggledisplayOpettajat() {
-        var element = document.getElementById("opettajat");
-        if (element.classList.contains("show")) {
-            element.classList.remove("show");
-        } else {
-            element.classList.add("show");
-        }
-    }
-
-    function toggledisplayKurssit() {
-        var element = document.getElementById("kurssit");
-        if (element.classList.contains("show")) {
-            element.classList.remove("show");
-        } else {
-            element.classList.add("show");
-        }
-    }
-
-    function toggledisplayTilat() {
-        var element = document.getElementById("tilat");
-        if (element.classList.contains("show")) {
-            element.classList.remove("show");
-        } else {
-            element.classList.add("show");
+            piilotaNapit()
         }
     }
     
